@@ -3,8 +3,9 @@ from Fecha import Fecha
 
 
 class Usuario:
-    def __init__(self, nombre: str, id: int, fecha_nac: Fecha, ciudad_nac: str, tel: int, email: str, direccion: Direccion):
-        self._id = id
+    def __init__(self, nombre: str, ID: int, fecha_nac: Fecha,
+                 ciudad_nac: str, tel: int, email: str, direccion: Direccion):
+        self._id = ID
         self._nombre = nombre
         self._fecha_nac = fecha_nac
         self._ciudad_nac = ciudad_nac

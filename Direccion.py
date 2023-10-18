@@ -1,6 +1,6 @@
 class Direccion:
     def __init__(self, calle: str = None, noCalle: str = None, nomenclatura: str = None, barrio: str = None,
-                 ciudad: str = None, urbanizacion: str = None, apartamento: int = None):
+                 ciudad: str = None, urbanizacion: str = None, apartamento: str = None):
         self._calle = calle
         self._noCalle = noCalle
         self._nomenclatura = nomenclatura
@@ -28,7 +28,7 @@ class Direccion:
     def get_urbanizacion(self) -> str:
         return self._urbanizacion
 
-    def get_apartamento(self) -> int:
+    def get_apartamento(self) -> str:
         return self._apartamento
 
     # Métodos set
@@ -50,7 +50,7 @@ class Direccion:
     def set_urbanizacion(self, urbanizacion: str):
         self._urbanizacion = urbanizacion
 
-    def set_apartamento(self, apartamento: int):
+    def set_apartamento(self, apartamento: str):
         self._apartamento = apartamento
 
     def toString(self):

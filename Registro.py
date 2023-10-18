@@ -63,19 +63,21 @@ class Registro:
             return temp1
 
     # busca un Usuario en el registro y lo retorna
-    def buscarID(self, x):
+    def buscarID(self, x: int):
         start = self._registro.first()
         last = self._registro.last()
-        mid = self.mid(start, last)
 
-        while mid is not None:
-            if mid.getData().get_id() == x:
-                return mid.getData().toString()  # Retorna el usuario encontrado
-            elif mid.getData().get_id() < x:
-                last = mid.getPrev()
+        # Llamar al método estático mid a través de la clase Password
+        mid_node = self.mid(start, last)
+
+        while mid_node is not None:
+            if mid_node.getData().get_id() == x:
+                return mid_node.getData()  # Retorna el usuario encontrado
+            elif mid_node.getData().get_id() > x:
+                last = mid_node.getPrev()
             else:
-                start = mid.getNext()
-            mid = self.mid(start, last)
+                start = mid_node.getNext()
+            mid_node = self.mid(start, last)  # Llamar al método estático mid nuevamente
 
         return None  # Si no se encuentra el id, retorna None
 
@@ -85,12 +87,12 @@ class Registro:
         for i in range(self._registro.size()):
             archivo.write(str(temp.getData().toString()) + "\n")
             temp = temp.getNext()
-        print(f"ARCHIVO GUARDADO EN {filename}\n")
+        self.ordenar()
 
     # Importa un Registro de un archivo de texto
-    def importar(self, filename: str):
-        archivo = open(filename, "r")
-        for linea in archivo:
+    def importar(self, usuario: str):
+        usuario = open(usuario, "r")
+        for linea in usuario:
             partes = linea.strip().split(' ')
             nombre = partes[0]
             ID = int(partes[1])
@@ -105,7 +107,7 @@ class Registro:
             nomenclarura = partes[10]
             barrio = partes[11]
             urbanizacion = partes[12]
-            apartamento = int(partes[13]) if partes[13] != "None" else None
+            apartamento = partes[13] if partes[13] != "None" else None
 
             fecha_nac = Fecha(dd, mm, aa)
             direccion = Direccion(calle, no_calle, nomenclarura, barrio, ciudad_nac, urbanizacion, apartamento)
@@ -113,7 +115,6 @@ class Registro:
             usuario = Usuario(nombre, ID, fecha_nac, ciudad_nac, tel, email, direccion)
             self.agregar(usuario)
         self.ordenar()
-        print("ARCHIVO IMPORTADO")
 
     # Imprime el registro
     def mostrar(self):
